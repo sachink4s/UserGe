@@ -10,8 +10,9 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 googletrans
-hachoir==3.1.1
+hachoir
 heroku3
+html-telegraph-poster
 motor
 nest_asyncio
 oauth2client

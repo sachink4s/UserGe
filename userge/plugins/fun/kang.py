@@ -8,8 +8,8 @@
 #
 # All rights reserved.
 
+import io
 import os
-import math
 import random
 import urllib.request
 
@@ -170,7 +170,8 @@ async def kang_(message: Message):
                 await conv.get_response(mark_read=True)
         await message.edit(f"`Sticker kanged successfully!`\n"
                            f"Pack can be found [here](t.me/addstickers/{packname})")
-        os.remove(photo)
+        if os.path.exists(str(photo)):
+            os.remove(photo)
 
 
 @userge.on_cmd("stkrinfo", about={
@@ -205,33 +206,18 @@ async def sticker_pack_info_(message: Message):
     await message.edit(out_str)
 
 
-def resize_photo(photo: str) -> str:
+def resize_photo(photo: str) -> io.BytesIO:
     """ Resize the given photo to 512x512 """
     image = Image.open(photo)
-    maxsize = (512, 512)
-    if (image.width and image.height) < 512:
-        size1 = image.width
-        size2 = image.height
-        if image.width > image.height:
-            scale = 512 / size1
-            size1new = 512
-            size2new = size2 * scale
-        else:
-            scale = 512 / size2
-            size1new = size1 * scale
-            size2new = 512
-        size1new = math.floor(size1new)
-        size2new = math.floor(size2new)
-        sizenew = (size1new, size2new)
-        image = image.resize(sizenew)
-    else:
-        image.thumbnail(maxsize)
+    maxsize = 512
+    scale = maxsize / max(image.width, image.height)
+    new_size = (int(image.width*scale), int(image.height*scale))
+    image = image.resize(new_size, Image.LANCZOS)
+    resized_photo = io.BytesIO()
+    resized_photo.name = "sticker.png"
+    image.save(resized_photo, "PNG")
     os.remove(photo)
-    photo = os.path.join(Config.DOWN_PATH, "sticker.png")
-    if os.path.exists(photo):
-        os.remove(photo)
-    image.save(photo, "PNG")
-    return photo
+    return resized_photo
 
 
 KANGING_STR = (
