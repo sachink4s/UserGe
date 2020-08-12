@@ -20,10 +20,13 @@ ALLOWED_COLLECTION = get_collection("PM_PERMIT")
 
 pmCounter: Dict[int, int] = {}
 allowAllFilter = Filters.create(lambda _, __: Config.ALLOW_ALL_PMS)
-noPmMessage = ("Hello {fname} this is an automated message\n"
-               "Please wait untill you get approved to direct message "
-               "And please dont spam untill then ")
-blocked_message = "**You were automatically blocked**"
+noPmMessage =  ("Hi Dear {flname} ❤\n"
+               "Unfortunately, I don't accept private messages from strangers.\n\n"
+               "Please contact me in a group,\n"
+               "@messagehere_4s\n"
+               "or Please wait for me to approve you.")
+blocked_message = "**You were blocked by Our Security System**\n\n
+                   ***Only SK4S can unblock you,Please wait for him***"
 
 
 async def _init() -> None:
