@@ -214,7 +214,7 @@ async def uninvitedPmHandler(message: Message):
     else:
         pmCounter.update({message.from_user.id: 1})
         await message.reply(
-            noPmMessage.format_map(SafeDict(**user_dict)) + '\n`- This Chat is secured by SK4S`')
+            noPmMessage.format_map(SafeDict(**user_dict)) + '\n`This Chat is secured by SK4S`')
         await asyncio.sleep(1)
         await CHANNEL.log(f"#NEW_MESSAGE\n{user_dict['mention']} has messaged you")
 
