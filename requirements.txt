@@ -16,7 +16,7 @@ html-telegraph-poster
 motor
 nest_asyncio
 oauth2client
-Pillow==6.2.2
+Pillow==8.3.2
 psutil
 pybase64
 pySmartDL
